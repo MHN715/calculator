@@ -1,6 +1,11 @@
 const buttons = document.querySelector(".btn-wrapper");
 const screen = document.querySelector(".screen");
 
+let previousNumber = "";
+let currentNumber = "";
+let actionType = "";
+let calculating = false;
+
 document.addEventListener("DOMContentLoaded", () => {
   buttons.addEventListener("click", (e) => {
     if (e.target.matches("button")) {
@@ -10,7 +15,6 @@ document.addEventListener("DOMContentLoaded", () => {
       const keyContent = key.textContent;
 
       if (!action) {
-        console.log("number key");
         if (onScreen === "0") {
           screen.textContent = keyContent;
         } else {
@@ -24,20 +28,29 @@ document.addEventListener("DOMContentLoaded", () => {
         action === "subtract" ||
         action === "add"
       ) {
-        console.log(action, "operator key");
+        previousNumber = onScreen;
+        screen.textContent = "0";
+
+        // if (previousNumber != "") {
+        //   screen.textContent = "";
+        // }
+
+        if (onScreen === "0") {
+          screen.textContent = "0";
+        }
 
         switch (action) {
           case "divide":
-            console.log("divide");
+            actionType = "divide";
             break;
           case "mulitply":
-            console.log("multiply");
+            actionType = "mulitply";
             break;
           case "subtract":
-            console.log("subtract");
+            actionType = "subtract";
             break;
           case "add":
-            console.log("add");
+            actionType = "add";
             break;
           default:
             console.log("operator keys not working");
@@ -48,29 +61,56 @@ document.addEventListener("DOMContentLoaded", () => {
         console.log("clear key");
         screen.textContent = "0";
       }
+
+      if (action === "delete") {
+        console.log("delete key");
+        let str = onScreen;
+        str = str.slice(0, -1);
+        if (onScreen.length === 1) {
+          screen.textContent = "0";
+        } else {
+          screen.textContent = str;
+        }
+      }
+
+      if (action === "decimal") {
+        console.log("decimal key");
+        if (!onScreen.includes(".")) {
+          screen.textContent = onScreen + ".";
+        }
+      }
+      if (action === "calculate") {
+        // console.log(previousNumber);
+        if (previousNumber != "") {
+          console.log(action);
+          currentNumber = onScreen;
+          screen.textContent = calculate(
+            previousNumber,
+            currentNumber,
+            actionType
+          );
+        }
+      }
     }
 
-    // switch (e.target) {
-    //   case 0:
-    //     day = "Sunday";
-    //     break;
-    //   case 1:
-    //     day = "Monday";
-    //     break;
-    //   case 2:
-    //     day = "Tuesday";
-    //     break;
-    //   case 3:
-    //     day = "Wednesday";
-    //     break;
-    //   case 4:
-    //     day = "Thursday";
-    //     break;
-    //   case 5:
-    //     day = "Friday";
-    //     break;
-    //   case 6:
-    //     day = "Saturday";
-    // }
+    function calculate(previousNumber, currentNumber, actionType) {
+      let result = "";
+      switch (actionType) {
+        case "divide":
+          result = parseFloat(previousNumber) / parseFloat(currentNumber);
+          break;
+        case "mulitply":
+          result = parseFloat(previousNumber) * parseFloat(currentNumber);
+          break;
+        case "subtract":
+          result = parseFloat(previousNumber) - parseFloat(currentNumber);
+          break;
+        case "add":
+          result = parseFloat(previousNumber) + parseFloat(currentNumber);
+          break;
+        default:
+      }
+      return result;
+    }
   });
 });
