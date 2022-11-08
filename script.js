@@ -95,18 +95,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function calculate(previousNumber, currentNumber, actionType) {
       let result = "";
+      const floatPreviousNumber = parseFloat(previousNumber);
+      const floatCurrentNumber = parseFloat(currentNumber);
       switch (actionType) {
         case "divide":
-          result = parseFloat(previousNumber) / parseFloat(currentNumber);
+          result = floatPreviousNumber / floatCurrentNumber;
           break;
         case "mulitply":
-          result = parseFloat(previousNumber) * parseFloat(currentNumber);
+          result = floatPreviousNumber * floatCurrentNumber;
           break;
         case "subtract":
-          result = parseFloat(previousNumber) - parseFloat(currentNumber);
+          result = floatPreviousNumber - floatCurrentNumber;
           break;
         case "add":
-          result = parseFloat(previousNumber) + parseFloat(currentNumber);
+          result = floatPreviousNumber + floatCurrentNumber;
           break;
         default:
       }
