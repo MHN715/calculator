@@ -27,19 +27,20 @@ document.addEventListener("DOMContentLoaded", () => {
         console.log(action, "operator key");
 
         switch (action) {
-          case action === "divide":
+          case "divide":
             console.log("divide");
             break;
-          case action === "mulitply":
+          case "mulitply":
             console.log("multiply");
             break;
-          case action === "subtract":
+          case "subtract":
             console.log("subtract");
             break;
-          case action === "add":
-            day = "add";
+          case "add":
+            console.log("add");
             break;
           default:
+            console.log("operator keys not working");
         }
       }
 
